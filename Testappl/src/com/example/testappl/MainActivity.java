@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
+	
+	public final static String EXTRA_MESSAGE = "This is the messege";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,9 @@ public class MainActivity extends Activity {
     /** Called when the user clicks the Send button */
     public void sendlogon(View view) {
     	Intent intent = new Intent(this, Logonconf.class);
+    	EditText editText = (EditText) findViewById(R.id.uNameText);
+    	String message = editText.getText().toString();
+    	intent.putExtra(EXTRA_MESSAGE, message);
     	 startActivity(intent);
         // Do something in response to button
     }

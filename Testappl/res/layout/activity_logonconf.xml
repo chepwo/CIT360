@@ -9,8 +9,9 @@
     tools:context=".Logonconf" >
 
     <TextView
+        android:id="@+id/logonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SUCCESS!" />
+        android:text="SUCCESS!"/>
 
 </RelativeLayout>

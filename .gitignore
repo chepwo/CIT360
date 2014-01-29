@@ -6,4 +6,4 @@
 *.ear
 
 # Folders #
-.metadata/**/*
+.metadata/

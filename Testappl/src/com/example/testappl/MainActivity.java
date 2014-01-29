@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
     }
     /** Called when the user clicks the Send button */
     public void sendlogon(View view) {
-    	Intent intent = new Intent(this, LoginCon.class);
+    	Intent intent = new Intent(this, Logonconf.class);
     	 startActivity(intent);
         // Do something in response to button
     }

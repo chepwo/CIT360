@@ -13,3 +13,4 @@ bin/
 #unwanted files#
 *.apk
 *.dex
+BuildConfig.java

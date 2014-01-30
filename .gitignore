@@ -7,3 +7,9 @@
 
 # Folders #
 .metadata/
+bin/
+!bin/AndroidManifest.xml
+
+#unwanted files#
+*.apk
+*.dex

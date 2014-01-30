@@ -29,10 +29,11 @@ public class MainActivity extends Activity {
     	String message = editText.getText().toString();
     	TextView textView = new TextView(this);
 	    textView.setTextSize(40);
-	    textView.setText("Welcome " + message);
+	    TextView welcome = (TextView) findViewById(R.id.welcome);
+	    welcome.setText("Welcome " + message);
 
 	    // Set the text view as the activity layout
-	    setContentView(textView);
+	    setContentView(R.layout.logonconfirmation);
 
         // Do something in response to button
     }

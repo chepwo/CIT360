@@ -27,15 +27,9 @@ public class MainActivity extends Activity {
 	public void sendlogon(View view) {
     	EditText editText = (EditText) findViewById(R.id.uNameText);
     	String message = editText.getText().toString();
-    	TextView textView = new TextView(this);
-	    textView.setTextSize(40);
+	    setContentView(R.layout.logonconfirmation);
 	    TextView welcome = (TextView) findViewById(R.id.welcome);
 	    welcome.setText("Welcome " + message);
-
-	    // Set the text view as the activity layout
-	    setContentView(R.layout.logonconfirmation);
-
-        // Do something in response to button
-    }
+	}
 
 }

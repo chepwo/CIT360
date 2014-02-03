@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 	}
 
 }
-package com.javacodegeeks.android.androidsocketserver;
+/*package com.javacodegeeks.android.androidsocketserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -169,3 +169,4 @@ public class Server extends Activity {
 		}
 	}
 }
+*/

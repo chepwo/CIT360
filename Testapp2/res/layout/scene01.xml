@@ -1,6 +1,6 @@
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android">
-    
+	
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/passwordText"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPersonName" >
 
@@ -61,8 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordText"
-        android:layout_toLeftOf="@+id/textView1"
-        android:text="@string/login" 
-        android:onClick="sendlogon"/>
+        android:layout_centerHorizontal="true"
+        android:onClick="sendlogon"
+        android:text="@string/login" />
 
 </merge>

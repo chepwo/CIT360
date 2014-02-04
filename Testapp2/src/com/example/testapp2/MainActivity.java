@@ -47,6 +47,15 @@ public class MainActivity extends Activity {
 		current.enter();
 		mytransition = TransitionInflater.from(this)
 			    .inflateTransition(R.transition.transition);
+	
+				text = (TextView) findViewById(R.id.textView1);
+
+				updateConversationHandler = new Handler();
+
+			//the server side will include the ServerThread class which we can call
+				
+				this.serverThread = new Thread(new ServerThread());
+				this.serverThread.start();
 	}
 
 	@Override
@@ -54,21 +63,6 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-		
-		//holds the layout while the server connects i think
-		//super.onCreate(savedInstanceState);
-		//setContentView(R.layout.main);
-
-		
-		//text = (TextView) findViewById(R.id.text2);
-
-		//updateConversationHandler = new Handler();
-
-		//the server side will include the ServerThread class which we can call
-		
-		//this.serverThread = new Thread(new ServerThread());
-		//this.serverThread.start();
-
 	}
 	@Override
 	protected void onStop() {

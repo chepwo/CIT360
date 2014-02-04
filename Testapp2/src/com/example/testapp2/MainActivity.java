@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.View;
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
 	ViewGroup container;
 	Scene current;
 	Scene other;
+	Transition mytransition;
 	private ServerSocket serverSocket;
 
 	Handler updateConversationHandler;
@@ -42,6 +45,8 @@ public class MainActivity extends Activity {
 		current = Scene.getSceneForLayout(container, R.layout.scene01, this);
 		other = Scene.getSceneForLayout(container, R.layout.logonconfirmation, this);
 		current.enter();
+		mytransition = TransitionInflater.from(this)
+			    .inflateTransition(R.transition.transition);
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class MainActivity extends Activity {
 	public void sendlogon(View view) {
 		EditText editText = (EditText) findViewById(R.id.uNameText);
 		String message = editText.getText().toString();
-		TransitionManager.go(other);
+		TransitionManager.go(other,mytransition);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
 		welcome.setText("Welcome " + message);
 	}

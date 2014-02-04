@@ -1,6 +1,13 @@
 package com.example.testapp2;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import android.os.Bundle;
+import android.os.Handler;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.transition.Scene;
@@ -17,6 +24,15 @@ public class MainActivity extends Activity {
 	ViewGroup container;
 	Scene current;
 	Scene other;
+	private ServerSocket serverSocket;
+
+	Handler updateConversationHandler;
+
+	Thread serverThread = null;
+
+	private TextView text;
+
+	public static final int SERVERPORT = 6000;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,57 +49,22 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
+		
+		//holds the layout while the server connects i think
+		//super.onCreate(savedInstanceState);
+		//setContentView(R.layout.main);
 
-	public void sendlogon(View view) {
-		EditText editText = (EditText) findViewById(R.id.uNameText);
-		String message = editText.getText().toString();
-		TransitionManager.go(other);
-		TextView welcome = (TextView) findViewById(R.id.welcome);
-		welcome.setText("Welcome " + message);
-	}
+		
+		//text = (TextView) findViewById(R.id.text2);
 
-}
-/*package com.javacodegeeks.android.androidsocketserver;
+		//updateConversationHandler = new Handler();
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.os.Handler;
-import android.widget.TextView;
-
-public class Server extends Activity {
-
-	private ServerSocket serverSocket;
-
-	Handler updateConversationHandler;
-
-	Thread serverThread = null;
-
-	private TextView text;
-
-	public static final int SERVERPORT = 6000;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-
-		text = (TextView) findViewById(R.id.text2);
-
-		updateConversationHandler = new Handler();
-
-		this.serverThread = new Thread(new ServerThread());
-		this.serverThread.start();
+		//the server side will include the ServerThread class which we can call
+		
+		//this.serverThread = new Thread(new ServerThread());
+		//this.serverThread.start();
 
 	}
-
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -92,6 +73,14 @@ public class Server extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void sendlogon(View view) {
+		EditText editText = (EditText) findViewById(R.id.uNameText);
+		String message = editText.getText().toString();
+		TransitionManager.go(other);
+		TextView welcome = (TextView) findViewById(R.id.welcome);
+		welcome.setText("Welcome " + message);
 	}
 
 	class ServerThread implements Runnable {
@@ -169,4 +158,4 @@ public class Server extends Activity {
 		}
 	}
 }
-*/
+

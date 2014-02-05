@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 	private TextView text;
 
 	public static final int SERVERPORT = 6000;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,17 +45,16 @@ public class MainActivity extends Activity {
 		current = Scene.getSceneForLayout(container, R.layout.scene01, this);
 		other = Scene.getSceneForLayout(container, R.layout.logonconfirmation, this);
 		current.enter();
-		mytransition = TransitionInflater.from(this)
-			    .inflateTransition(R.transition.transition);
-	
-				text = (TextView) findViewById(R.id.textView1);
+		mytransition = TransitionInflater.from(this).inflateTransition(R.transition.transition);
 
-				updateConversationHandler = new Handler();
+		text = (TextView) findViewById(R.id.textView1);
 
-			//the server side will include the ServerThread class which we can call
-				
-				this.serverThread = new Thread(new ServerThread());
-				this.serverThread.start();
+		updateConversationHandler = new Handler();
+
+		//the server side will include the ServerThread class which we can call
+
+		this.serverThread = new Thread(new ServerThread());
+		this.serverThread.start();
 	}
 
 	@Override

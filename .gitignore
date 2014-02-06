@@ -13,6 +13,4 @@ bin/
 #unwanted files#
 *.apk
 *.dex
-.classpath
-org.eclipse.jdt.core.prefs
 BuildConfig.java

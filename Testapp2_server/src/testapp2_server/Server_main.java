@@ -2,19 +2,18 @@ package testapp2_server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.quickconnectfamily.json.*;
 
 
 public class Server_main {
-
+    
 	public static void main(String[] args) {
-
+		
 		try {
 			//a socket opened on the specified port
-			ServerSocket aListeningSocket = new ServerSocket(6000);
+			ServerSocket aListeningSocket = new ServerSocket(9292);
 			while(true){
 				//wait for a connection
 				System.out.println("Waiting for client connection request.");

@@ -53,11 +53,16 @@ public class MainActivity extends Activity {
 	}
 
 	public void sendlogon(View view) {
-		EditText editText = (EditText) findViewById(R.id.uNameText);
-		String message = editText.getText().toString();
+		EditText uName = (EditText) findViewById(R.id.uNameText);
+		String uNameString = uName.getText().toString();
+		EditText password = (EditText) findViewById(R.id.passwordText);
+		String passwordString = password.getText().toString();
+		userBean currentUser = new userBean();
+		currentUser.setuName(uNameString);
+		currentUser.setPassword(passwordString);
 		TransitionManager.go(other);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
-		welcome.setText("Welcome " + message);
+		welcome.setText("Welcome " + uNameString);
 	}
 
 }

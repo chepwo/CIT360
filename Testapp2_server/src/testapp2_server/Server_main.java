@@ -2,18 +2,20 @@ package testapp2_server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.quickconnectfamily.json.*;
 
 
 public class Server_main {
-    
+
 	public static void main(String[] args) {
-		
+
 		try {
 			//a socket opened on the specified port
-			ServerSocket aListeningSocket = new ServerSocket(9292);
+			@SuppressWarnings("resource")
+			ServerSocket aListeningSocket = new ServerSocket(6000);
 			while(true){
 				//wait for a connection
 				System.out.println("Waiting for client connection request.");
@@ -25,14 +27,16 @@ public class Server_main {
 				//the connection.
 				while(true){
 					System.out.println("Waiting for a message from the server.");
+					@SuppressWarnings("rawtypes")
 					HashMap aMap = (HashMap)inFromClient.readObject();
 					System.out.println("Just got:"+aMap+" from client");
-					CommunicationBean aResponse = new CommunicationBean("Done",(ArrayList)aMap.get("data"));
+					//CommunicationBean aResponse = new CommunicationBean("Done",(ArrayList)aMap.get("data"));
+					CommunicationBean aResponse = new CommunicationBean();
+
 					outToClient.writeObject(aResponse);
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(1);
 		}

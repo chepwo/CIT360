@@ -10,6 +10,7 @@ import org.quickconnectfamily.json.*;
 
 public class Server_main {
 
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) {
 
 		try {
@@ -27,11 +28,9 @@ public class Server_main {
 				//the connection.
 				while(true){
 					System.out.println("Waiting for a message from the server.");
-					@SuppressWarnings("rawtypes")
 					HashMap aMap = (HashMap)inFromClient.readObject();
 					System.out.println("Just got:"+aMap+" from client");
-					//CommunicationBean aResponse = new CommunicationBean("Done",(ArrayList)aMap.get("data"));
-					CommunicationBean aResponse = new CommunicationBean();
+					CommunicationBean aResponse = new CommunicationBean("Done",(ArrayList)aMap.get("data"));
 
 					outToClient.writeObject(aResponse);
 				}

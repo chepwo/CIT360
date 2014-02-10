@@ -1,48 +1,68 @@
 package testapp2_server;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+@SuppressWarnings("rawtypes")
 public class CommunicationBean implements Serializable {
 
-	private int field1;
-	private int field2;
-	private String field3;
-	private String field4;
+	private String message;
+	private ArrayList object;
 
 	public CommunicationBean() {
 
 	}
+	
+	public CommunicationBean(String message,ArrayList object) {
+		this.message = message;
+		this.object = object;
+	}
+	
+	public ArrayList getObject() {
+		return object;
+	}
 
-	public void setField1(int field1) {
-		this.field1 = field1;
+	public void setObject(ArrayList object) {
+		this.object = object;
 	}
 
-	public void setField2(int field2) {
-		this.field2 = field2;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
-	public void setField3(String field3) {
-		this.field3 = field3;
+	public String getMessage() {
+		return this.message;
 	}
-	
-	public void setField4(String field4) {
-		this.field4 = field4;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = prime * result + ((object == null) ? 0 : object.hashCode());
+		return result;
 	}
-	
-	public int getField1() {
-		return this.field1;
-	}
-	
-	public int getField2() {
-		return this.field2;
-	}
-	
-	public String getField3() {
-		return this.field3;
-	}
-	
-	public String getField4() {
-		return this.field4;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CommunicationBean other = (CommunicationBean) obj;
+		if (message == null) {
+			if (other.message != null)
+				return false;
+		} else if (!message.equals(other.message))
+			return false;
+		if (object == null) {
+			if (other.object != null)
+				return false;
+		} else if (!object.equals(other.object))
+			return false;
+		return true;
 	}
 	
 }

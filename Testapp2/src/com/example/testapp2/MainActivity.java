@@ -60,6 +60,11 @@ public class MainActivity extends Activity {
 		UserBean currentUser = new UserBean();
 		currentUser.setuName(uNameString);
 		currentUser.setPassword(passwordString);
+		try {
+			outToServer.writeObject(currentUser);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		TransitionManager.go(other);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
 		welcome.setText("Welcome " + uNameString);

@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 		String uNameString = uName.getText().toString();
 		EditText password = (EditText) findViewById(R.id.passwordText);
 		String passwordString = password.getText().toString();
-		userBean currentUser = new userBean();
+		UserBean currentUser = new UserBean();
 		currentUser.setuName(uNameString);
 		currentUser.setPassword(passwordString);
 		TransitionManager.go(other);

@@ -1,4 +1,4 @@
-package com.example.testapp2;
+package testapp2_server;
 
 import java.io.Serializable;
 

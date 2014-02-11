@@ -21,6 +21,7 @@ public class Server_main {
 				//wait for a connection
 				System.out.println("Waiting for client connection request.");
 				Socket clientSocket = aListeningSocket.accept();
+				System.out.println("client connected from: " + clientSocket.getRemoteSocketAddress());
 				//setup the JSON streams for later use.
 				JSONInputStream inFromClient = new JSONInputStream(clientSocket.getInputStream());
 				JSONOutputStream outToClient = new JSONOutputStream(clientSocket.getOutputStream());

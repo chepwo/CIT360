@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		System.out.println(" --------  debug 1 ------------");
 		setContentView(R.layout.activity_main);
 		container = (ViewGroup) findViewById(R.id.container);
 		current = Scene.getSceneForLayout(container, R.layout.scene01, this);
@@ -35,14 +36,18 @@ public class MainActivity extends Activity {
 		current.enter();
 		try{
         	//connect to the server
-	        toServer = new Socket("172.0.0.1", 6000);
-	        //setup the JSON streams to be used later.
+	        toServer = new Socket("10.0.2.2", 6000);
+	        System.out.println("socket created");
+	        // setup the JSON streams to be used later.
 	        inFromServer = new JSONInputStream(toServer.getInputStream());
-	        outToServer = new JSONOutputStream(toServer.getOutputStream());
+	        outToServer = new JSONOutputStream(toServer.getOutputStream()); 
+	        System.out.println("JSON streams set up");
+	        outToServer.writeObject("hello");
 		} catch(Exception e){
             e.printStackTrace();
             // responseView.setText("Error: Unable to communicate with server. "+e.getLocalizedMessage());
         }
+        
 	}
 
 	@Override
@@ -60,11 +65,14 @@ public class MainActivity extends Activity {
 		UserBean currentUser = new UserBean();
 		currentUser.setuName(uNameString);
 		currentUser.setPassword(passwordString);
+		/*
 		try {
 			outToServer.writeObject(currentUser);
-		} catch (JSONException e) {
+		} 
+		catch (JSONException e) {
 			e.printStackTrace();
 		}
+		*/
 		TransitionManager.go(other);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
 		welcome.setText("Welcome " + uNameString);

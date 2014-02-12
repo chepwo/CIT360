@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
 	Socket toServer;
 	JSONInputStream inFromServer;
 	JSONOutputStream outToServer;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,20 +34,29 @@ public class MainActivity extends Activity {
 		current = Scene.getSceneForLayout(container, R.layout.scene01, this);
 		other = Scene.getSceneForLayout(container, R.layout.logonconfirmation, this);
 		current.enter();
-		try{
-        	//connect to the server
-	        toServer = new Socket("10.0.2.2", 6000);
-	        System.out.println("socket created");
-	        // setup the JSON streams to be used later.
-	        inFromServer = new JSONInputStream(toServer.getInputStream());
-	        outToServer = new JSONOutputStream(toServer.getOutputStream()); 
-	        System.out.println("JSON streams set up");
-	        outToServer.writeObject("hello");
-		} catch(Exception e){
-            e.printStackTrace();
-            // responseView.setText("Error: Unable to communicate with server. "+e.getLocalizedMessage());
-        }
-        
+		System.out.println(" --------  debug 2 ------------");
+		Thread connectThread = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				try{
+					//connect to the server
+					toServer = new Socket("10.0.2.2", 6000);
+					System.out.println("socket created");
+					// setup the JSON streams to be used later.
+					inFromServer = new JSONInputStream(toServer.getInputStream());
+					outToServer = new JSONOutputStream(toServer.getOutputStream()); 
+					System.out.println("JSON streams set up");
+				} catch(Exception e){
+					e.printStackTrace();
+					// responseView.setText("Error: Unable to communicate with server. "+e.getLocalizedMessage());
+				}				
+			}
+		} );
+		System.out.println(" --------  debug 3 ------------");
+		connectThread.start();
+		System.out.println(" --------  debug 4 ------------");
+
+
 	}
 
 	@Override
@@ -65,14 +74,14 @@ public class MainActivity extends Activity {
 		UserBean currentUser = new UserBean();
 		currentUser.setuName(uNameString);
 		currentUser.setPassword(passwordString);
-		/*
+		System.out.println(" --------  debug 5 ------------");
 		try {
 			outToServer.writeObject(currentUser);
 		} 
 		catch (JSONException e) {
 			e.printStackTrace();
+			System.out.println(" --------- unable to send ------------");
 		}
-		*/
 		TransitionManager.go(other);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
 		welcome.setText("Welcome " + uNameString);

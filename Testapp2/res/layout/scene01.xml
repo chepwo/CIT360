@@ -55,6 +55,7 @@
         android:layout_alignBaseline="@+id/buttonToLoginScreen"
         android:layout_alignBottom="@+id/buttonToLoginScreen"
         android:layout_toLeftOf="@+id/textView1"
+        android:onClick="startregister"
         android:text="@string/register" />
 
     <Button

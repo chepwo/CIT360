@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
 	ViewGroup container;
 	Scene current;
 	Scene other;
+	Scene confirm;
+	Scene register;
 	Socket toServer;
 	JSONInputStream inFromServer;
 	JSONOutputStream outToServer;
@@ -32,7 +34,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		container = (ViewGroup) findViewById(R.id.container);
 		current = Scene.getSceneForLayout(container, R.layout.scene01, this);
-		other = Scene.getSceneForLayout(container, R.layout.logonconfirmation, this);
+		confirm = Scene.getSceneForLayout(container, R.layout.logonconfirmation, this);
+		register = Scene.getSceneForLayout(container, R.layout.registerpage, this);
 		current.enter();
 		System.out.println(" --------  debug 2 ------------");
 		Thread connectThread = new Thread(new Runnable(){
@@ -77,14 +80,39 @@ public class MainActivity extends Activity {
 		System.out.println(" --------  debug 5 ------------");
 		try {
 			outToServer.writeObject(currentUser);
-		} 
+		}  
 		catch (JSONException e) {
 			e.printStackTrace();
 			System.out.println(" --------- unable to send ------------");
 		}
-		TransitionManager.go(other);
+		TransitionManager.go(confirm);
 		TextView welcome = (TextView) findViewById(R.id.welcome);
 		welcome.setText("Welcome " + uNameString);
+	}
+	
+	public void startregister(View view){
+		TransitionManager.go(register);
+	}
+	
+	public void sendRegister(View view){
+		EditText uName = (EditText) findViewById(R.id.regUNameText);
+		String uNameString = uName.getText().toString();
+		EditText password1 = (EditText) findViewById(R.id.password1Text);
+		String password1String = password1.getText().toString();
+		EditText password2 = (EditText) findViewById(R.id.password2text);
+		String password2String = password2.getText().toString();
+		if (password2String.equals(password1String)){
+			UserBean currentUser = new UserBean();
+			currentUser.setuName(uNameString);
+			currentUser.setPassword(password1String);
+			try {
+				outToServer.writeObject(currentUser);
+			} 
+			catch (JSONException e) {
+				e.printStackTrace();
+				System.out.println(" --------- unable to send ------------");
+			}
+		}
 	}
 
 }

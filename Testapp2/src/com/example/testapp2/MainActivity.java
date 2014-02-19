@@ -7,6 +7,7 @@ import org.quickconnectfamily.json.*;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @TargetApi(19)
 public class MainActivity extends Activity {
@@ -105,13 +107,24 @@ public class MainActivity extends Activity {
 			UserBean currentUser = new UserBean();
 			currentUser.setuName(uNameString);
 			currentUser.setPassword(password1String);
-			try {
+			try { 
 				outToServer.writeObject(currentUser);
 			} 
 			catch (JSONException e) {
 				e.printStackTrace();
 				System.out.println(" --------- unable to send ------------");
 			}
+			TransitionManager.go(confirm);
+			TextView welcome = (TextView) findViewById(R.id.welcome);
+			welcome.setText("Welcome " + uNameString);
+		}
+		else{
+			Context context = getApplicationContext();
+			CharSequence text = "Passwords do not match!";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+			
 		}
 	}
 

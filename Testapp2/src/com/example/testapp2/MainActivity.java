@@ -1,8 +1,8 @@
 package com.example.testapp2;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import org.quickconnectfamily.json.*;
@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
 	Scene confirm;
 	Scene register;
 	String uNameString;
-
 	Handler handler;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +49,40 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	public void transition(HashMap aMap){
+		if (aMap.containsValue(true))
+		TransitionManager.go(confirm);
+		else
+		TransitionManager.go(register);
+	}
+	
+	public class PostRunnable implements Runnable {
+		private HashMap aMap;
+		private WeakReference<MainActivity> weak;
+		
+		public PostRunnable(HashMap aMap, WeakReference<MainActivity> weak){
+			this.aMap = aMap;
+			this.weak = weak;
+		}
+		@Override
+		public void run() {
+			MainActivity mainActivity = weak.get();
+			mainActivity.transition(aMap);
+		}
+		
+	}
 	public class LoginRunnable implements Runnable {
 
 		private Handler handler;
 		private UserBean currentUser;
 		private HashMap aMap;
+		private WeakReference<MainActivity> weak;
 
-		public LoginRunnable(Handler handler, UserBean currentUser) {
+		public LoginRunnable(Handler handler, UserBean currentUser, WeakReference<MainActivity> weak) {
 			this.handler = handler;
 			this.currentUser = currentUser;
-		}
-		public HashMap getMap(){
-			return this.aMap;
+			this.weak = weak;
 		}
 		@Override
 		public void run() {
@@ -75,6 +96,8 @@ public class MainActivity extends Activity {
 				System.out.println("JSON streams set up");
 				outToServer.writeObject(currentUser);
 				aMap = (HashMap)inFromServer.readObject();
+				PostRunnable postRunnable = new PostRunnable(aMap, weak);
+				handler.post(postRunnable); 
 				toSceneMain();
 			} catch(Exception e){
 				e.printStackTrace();
@@ -91,10 +114,10 @@ public class MainActivity extends Activity {
 		UserBean currentUser = new UserBean();
 		currentUser.setuName(uNameString);
 		currentUser.setPassword(passwordString);
-		LoginRunnable run = new LoginRunnable(handler, currentUser);
+		WeakReference<MainActivity> weak = new WeakReference<MainActivity>(this);
+		LoginRunnable run = new LoginRunnable(handler, currentUser, weak);
 		Thread connectThread = new Thread(run);
 		connectThread.start();
-		HashMap aMap = run.getMap();
 		
 	}
 	
@@ -119,7 +142,8 @@ public class MainActivity extends Activity {
 			UserBean currentUser = new UserBean();
 			currentUser.setuName(uNameString);
 			currentUser.setPassword(password1String);
-			Thread connectThread = new Thread(new LoginRunnable(handler, currentUser));
+			WeakReference<MainActivity> weak = new WeakReference<MainActivity>(this);
+			Thread connectThread = new Thread(new LoginRunnable(handler, currentUser, weak));
 			connectThread.start();
 			TransitionManager.go(confirm);
 			TextView welcome = (TextView) findViewById(R.id.welcome);
